@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/usr/share/nvim'
+let g:netrw_dirhist_7='/usr/share/nvim/runtime'
+let g:netrw_dirhist_6='/usr/share/nvim/runtime/doc'
+let g:netrw_dirhist_5='/home/mashiro/Typescript/dummykek/src'
+let g:netrw_dirhist_4='/home/mashiro/Typescript/dummykek'
+let g:netrw_dirhist_3='/home/mashiro/Typescript/dummykek/public'
+let g:netrw_dirhist_2='/home/mashiro/Typescript/dummykek'
+let g:netrw_dirhist_1='/'
