@@ -164,7 +164,7 @@ interval = 5
 
 date = %b %d, %Y
 date-alt = %A, %d %B, %Y
-time = %I:%m %p
+time = %I:%M %p
 time-alt = %I:%m:%S %p
 
 ;format-prefix =
