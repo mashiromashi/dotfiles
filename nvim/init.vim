@@ -7,9 +7,6 @@ map <leader>C :setlocal formatoptions=cro<CR>
 " Enable spell checking, s for spell check
 map <leader>s :setlocal spell! spelllang=en_au<CR>
 
-" Enable Disable Auto Indent
-map <leader>i :setlocal autoindent<CR>
-map <leader>I :setlocal noautoindent<CR>
 
 " Shortcutting split navigation
 map <A-h> <C-w>h
@@ -22,6 +19,13 @@ nnoremap <leader>h :split<Space>
 nnoremap <leader>v :vsplit<Space>
 
 
+" Save File Shortcut
+map <C-s> :w<CR>
+
+" Close nvim Shortcut
+map <C-q> :wq<CR> 
+
+
 " == VIM PLUG ================================
 call plug#begin('~/.vim/plugged')
 "------------------------ COC ------------------------
@@ -29,24 +33,19 @@ call plug#begin('~/.vim/plugged')
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " coc extensions
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
-"------------------------ VIM TSX ------------------------
-" by default, if you open tsx file, neovim does not show syntax colors
-" vim-tsx will do all the coloring for jsx in the .tsx file
-Plug 'ianks/vim-tsx'
-"------------------------ VIM TSX ------------------------
-" by default, if you open tsx file, neovim does not show syntax colors
-" typescript-vim will do all the coloring for typescript keywords
-Plug 'leafgarland/typescript-vim'
+"------------------------ TSX SYNTAX HIGHTLIGHTING------
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 "------------------------ THEME ------------------------
 " most importantly you need a good color scheme to write good code :D
-Plug 'dikiaap/minimalist'
+Plug 'arcticicestudio/nord-vim'
+Plug 'junegunn/goyo.vim'
 " Nerd Tree for toggleable file tree" 
 Plug 'preservim/nerdtree'
 " syntax hightlighting
-Plug 'yuezk/vim-js'
-Plug 'maxmellon/vim-jsx-pretty'
-" Commenting
-Plug 'alvan/vim-commentary'
+Plug 'sheerun/vim-polyglot'
+" Linting
+Plug 'dense-analysis/ale'
 " working with tags
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
@@ -67,6 +66,13 @@ set smartcase
 set encoding=utf-8
 set number relativenumber
 set clipboard+=unnamedplus
+set noruler
+set tabstop=4
+set autoread
+set spell
+set shiftwidth=4
+set softtabstop=4
+
 
 " Autocompletion
 set wildmode=longest,list,full 
