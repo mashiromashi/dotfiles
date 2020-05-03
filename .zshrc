@@ -6,7 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 #flex on the ewbuntufags
-neofetch
+pfetch
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -184,3 +184,13 @@ alias nvimconf="cd ~/.config/nvim/ && nvim init.vim"
 
 #zshrc
 alias zshrc="nvim ~/.zshrc"
+
+#itda projects
+alias padmin="cd ~/ITDA/admin"
+alias pfront="cd ~/IDA/frontend"
+
+#pacman commands
+alias sysupdate="sudo pacman -Syu"
+
+#node projects
+alias att="cd ~/Node/attendence-backend && nvim ."

@@ -5,26 +5,29 @@ map <leader>c :setlocal formatoptions-=cro<CR>
 map <leader>C :setlocal formatoptions=cro<CR>
 
 " Enable spell checking, s for spell check
-map <leader>s :setlocal spell! spelllang=en_au<CR>
+map <leader>s :setlocal spell! spelllang=en_us<CR>
 
 
 " Shortcutting split navigation
-map <A-h> <C-w>h
-map <A-j> <C-w>j
-map <A-k> <C-w>k
-map <A-l> <C-w>l
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
 
 " Shortcut split opening
-nnoremap <leader>h :split<Space>
-nnoremap <leader>v :vsplit<Space>
+nnoremap <leader>hs :split<Space>
+nnoremap <leader>vs :vsplit<Space>
 
-
+" Undo
+map <C-u> :undo<CR>
 " Save File Shortcut
 map <C-s> :w<CR>
 
 " Close nvim Shortcut
 map <C-q> :wq<CR> 
 
+"Goyo Toggle
+map <C-o> :Goyo<CR>
 
 " == VIM PLUG ================================
 call plug#begin('~/.vim/plugged')
@@ -35,10 +38,11 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-yank', 'coc-prettier']
 "------------------------ TSX SYNTAX HIGHTLIGHTING------
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'mhartington/nvim-typescript', {'for':['typescript', 'tsx'], 'do': './install.sh'}
 "------------------------ THEME ------------------------
 " most importantly you need a good color scheme to write good code :D
 Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
 Plug 'junegunn/goyo.vim'
 " Nerd Tree for toggleable file tree" 
 Plug 'preservim/nerdtree'
@@ -49,14 +53,16 @@ Plug 'dense-analysis/ale'
 " working with tags
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
+" Vim Airline 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" Neovim Terminal
+Plug 'kassio/neoterm'
+Plug 'junegunn/fzf.vim'
+
 call plug#end()
 " == VIMPLUG END ================================
-" == AUTOCMD ================================ 
-" by default .ts file are not identified as typescript and .tsx files are not
-" identified as typescript react file, so add following
-au BufNewFile,BufRead *.ts setlocal filetype=typescript
-au BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
-" == AUTOCMD END ================================
 
 " Basic settings
 set mouse=a
@@ -71,8 +77,15 @@ set tabstop=4
 set autoread
 set spell
 set shiftwidth=4
-set softtabstop=4
+set showmatch
+set noerrorbells
 
+
+
+set t_Co=256
+
+" Powerline fonts
+let g:airline_powerline_fonts = 1
 
 " Autocompletion
 set wildmode=longest,list,full 
@@ -95,7 +108,12 @@ set splitbelow splitright
     \ ]
 
 " From Coc Readme
-  set updatetime=300
+  set updatetime=50
+" Font Override
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -123,5 +141,29 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
 
+func GoYCM()
+    :CocDisable
+    nnoremap <buffer> <silent> <leader>gd :YcmCompleter GoTo<CR>
+    nnoremap <buffer> <silent> <leader>gr :YcmCompleter GoToReferences<CR>
+    nnoremap <buffer> <silent> <leader>rr :YcmCompleter RefactorRename<space>
+endfun
 
+fun! GoCoc()
+    inoremap <buffer> <silent><expr> <TAB>
+                \ pumvisible() ? "\<C-n>" :
+                \ <SID>check_back_space() ? "\<TAB>" :
+                \ coc#refresh()
 
+    inoremap <buffer> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    inoremap <buffer> <silent><expr> <C-space> coc#refresh()
+
+    " GoTo code navigation.
+    nmap <buffer> <leader>gd <Plug>(coc-definition)
+    nmap <buffer> <leader>gy <Plug>(coc-type-definition)
+    nmap <buffer> <leader>gi <Plug>(coc-implementation)
+    nmap <buffer> <leader>gr <Plug>(coc-references)
+    nnoremap <buffer> <leader>cr :CocRestart
+endfun
+
+autocmd BufWritePre * :call TrimWhitespace()
+autocmd FileType typescript,tsx :call GoYCM()
