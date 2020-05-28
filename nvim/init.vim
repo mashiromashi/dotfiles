@@ -15,8 +15,8 @@ nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 
 " Shortcut split opening
-nnoremap <leader>hs :split<Space>
-nnoremap <leader>vs :vsplit<Space>
+nnoremap <leader>hs :split<CR>
+nnoremap <leader>vs :vsplit<CR>
 
 " Undo
 map <C-u> :undo<CR>
@@ -24,11 +24,12 @@ map <C-u> :undo<CR>
 map <C-s> :w<CR>
 
 " Close nvim Shortcut
-map <C-q> :wq<CR> 
+map <C-q> :wq<CR>
 
 "Goyo Toggle
 map <C-o> :Goyo<CR>
-
+"FZF
+nnoremap <C-p> :GFiles<CR>
 " == VIM PLUG ================================
 call plug#begin('~/.vim/plugged')
 "------------------------ COC ------------------------
@@ -44,7 +45,7 @@ Plug 'mhartington/nvim-typescript', {'for':['typescript', 'tsx'], 'do': './insta
 Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/goyo.vim'
-" Nerd Tree for toggleable file tree" 
+" Nerd Tree for toggleable file tree"
 Plug 'preservim/nerdtree'
 " syntax hightlighting
 Plug 'sheerun/vim-polyglot'
@@ -53,14 +54,14 @@ Plug 'dense-analysis/ale'
 " working with tags
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-surround'
-" Vim Airline 
+" Vim Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
+" Fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 " Neovim Terminal
 Plug 'kassio/neoterm'
-Plug 'junegunn/fzf.vim'
-
 call plug#end()
 " == VIMPLUG END ================================
 
@@ -88,7 +89,7 @@ set t_Co=256
 let g:airline_powerline_fonts = 1
 
 " Autocompletion
-set wildmode=longest,list,full 
+set wildmode=longest,list,full
 
 " Fix splitting
 set splitbelow splitright
@@ -108,7 +109,7 @@ set splitbelow splitright
     \ ]
 
 " From Coc Readme
-  set updatetime=50
+  set updatetime=300
 " Font Override
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -165,5 +166,13 @@ fun! GoCoc()
     nnoremap <buffer> <leader>cr :CocRestart
 endfun
 
+fun! TrimWhitespace()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+
 autocmd BufWritePre * :call TrimWhitespace()
-autocmd FileType typescript,tsx :call GoYCM()
+
+
+
