@@ -250,6 +250,8 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+export PATH=$PATH:$HOME/flutter/bin
+
 alias inotify="sudo sysctl -p"
 alias Node="cd ~/Node"
 alias React="cd ~/React"
