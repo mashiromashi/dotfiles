@@ -54,7 +54,7 @@ font-2 = Font Awesome 5 Free Solid:pixelsize=10;0
 font-3 = Font Awesome 5 Brands:pixelsize=10;0
 
 modules-left = i3
-modules-right = date pulseaudio powermenu
+modules-right = wlan date pulseaudio powermenu
 
 tray-position = right
 tray-padding = 1
@@ -132,10 +132,9 @@ interval = 5
 
 format-connected = <label-connected>
 format-connected-underline = ${colors.secondary}
-label-connected =  %signal%%
-:%essid%
+label-connected =  %signal%%:%essid%
 
-format-disconnected =
+;format-disconnected =
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
