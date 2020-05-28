@@ -5,8 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-#flex on the ewbuntufags
-pfetch
+
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -32,10 +31,13 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+# Flutter
+export PATH=$PATH:$HOME/flutter/bin
+
 # Laravel
 export PATH=$PATH:$HOME/.config/composer/vendor/bin
 
-# Python 
+# Python
 export PATH=$PATH:/usr/bin/python
 
 # Set name of the theme to load --- if set to "random", it will
@@ -97,7 +99,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# fff cd 
+# fff cd
 fffcd() {
     fff "$@"
     cd "$(cat "${XDG_CACHE_HOME:=${HOME}/.cache}/fff/.fff_d")"
@@ -176,7 +178,7 @@ alias anonbot="cd ~/Node/discordBot/ && yarn start"
 # screenshot
 alias spec="spectacle -r -c"
 
-#logout 
+#logout
 alias logout="pkill -KILL -u mashiro"
 
 #nvim config
